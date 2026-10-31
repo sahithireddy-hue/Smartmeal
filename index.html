@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartMeal | College Food Waste Management</title>
+<style>
+:root{--green:#116b52;--deep:#083d35;--mint:#e9f6ef;--ink:#173b35;--muted:#6d817b;--line:#dcebe3;--orange:#ef9451}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Arial,sans-serif;background:#f4f8f5;color:var(--ink)}
+header{background:linear-gradient(110deg,var(--deep),#13775b);color:white;padding:22px max(22px,calc((100% - 1180px)/2));display:flex;justify-content:space-between;align-items:center;gap:16px}
+.brand{font-size:22px;font-weight:800;letter-spacing:.3px}.brand small{display:block;font-size:11px;font-weight:500;opacity:.8;letter-spacing:1px;margin-top:4px}
+.pill{border:1px solid #ffffff55;border-radius:30px;padding:9px 13px;font-size:12px}
+.layout{max-width:1180px;margin:26px auto;padding:0 20px;display:grid;grid-template-columns:220px 1fr;gap:22px}
+nav,.panel,.stat{background:white;border:1px solid var(--line);border-radius:16px}
+nav{padding:13px;height:max-content;position:sticky;top:16px}
+nav button{display:block;width:100%;text-align:left;padding:13px 12px;border:0;background:transparent;color:var(--ink);border-radius:10px;font-size:14px;cursor:pointer;margin:3px 0}
+nav button.active,nav button:hover{background:var(--mint);color:var(--green);font-weight:700}
+main h1{font-size:27px;margin:3px 0 6px} .sub{color:var(--muted);margin:0 0 22px;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:18px}
+.stat{padding:17px}.stat span{display:block;color:var(--muted);font-size:12px;margin-bottom:9px}.stat strong{font-size:25px}.stat em{display:block;color:var(--muted);font-style:normal;font-size:11px;margin-top:5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.panel{padding:20px;margin-bottom:16px}.panel h2{font-size:17px;margin:0 0 14px}.panel p{color:var(--muted);font-size:13px;line-height:1.55}
+.page{display:none}.page.active{display:block}
+label{display:block;font-size:13px;font-weight:700;margin:13px 0 6px}input,select{width:100%;padding:11px;border:1px solid #cdded4;border-radius:9px;font-size:14px;background:white;color:var(--ink)}
+.btn{border:0;background:var(--green);color:white;padding:11px 16px;border-radius:9px;font-weight:700;cursor:pointer;margin-top:13px}.btn.secondary{background:#eaf5ef;color:var(--green);border:1px solid var(--line)}
+.choice{display:flex;gap:10px}.choice button{flex:1;padding:13px;border:1px solid var(--line);background:#f8fbf9;border-radius:10px;cursor:pointer;color:var(--ink)}.choice button.selected{border:2px solid var(--green);background:var(--mint);font-weight:700}
+.notice{padding:12px;background:#fff6e9;border:1px solid #f5dfc2;border-radius:10px;color:#80502b;font-size:12px;margin-top:12px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:11px 8px;border-bottom:1px solid var(--line)}th{color:var(--muted);font-size:11px;text-transform:uppercase}
+.barrow{display:grid;grid-template-columns:82px 1fr 35px;gap:8px;align-items:center;margin:14px 0;font-size:12px}.bar{height:10px;background:#edf3ef;border-radius:20px;overflow:hidden}.bar i{display:block;height:100%;background:#2a9a70;border-radius:20px}.recommend{background:var(--mint);border-radius:10px;padding:12px;margin:9px 0;font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:11px;padding:25px}
+@media(max-width:800px){.layout{grid-template-columns:1fr}nav{position:static;display:grid;grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}.grid2{grid-template-columns:1fr}}
+@media(max-width:420px){header{align-items:flex-start;flex-direction:column}.stats{gap:8px}.stat{padding:12px}.stat strong{font-size:21px}}
+</style>
+</head>
+<body>
+<header><div class="brand">🌱 SmartMeal<small>LESS WASTE. BETTER MEALS.</small></div><div class="pill">College Mess Management • Prototype</div></header>
+<div class="layout">
+<nav aria-label="Main navigation">
+<button class="active" data-page="overview">▦ &nbsp; Overview</button>
+<button data-page="student">☑ &nbsp; Student meal selection</button>
+<button data-page="planning">🍲 &nbsp; Food planning</button>
+<button data-page="records">♻ &nbsp; Meal & leftover records</button>
+<button data-page="reports">▥ &nbsp; Reports & recommendations</button>
+</nav>
+<main>
+<section id="overview" class="page active">
+<h1>Good day, Mess Team!</h1><p class="sub">Plan meals using student responses and keep track of food waste.</p>
+<div class="stats">
+<div class="stat"><span>Expected students</span><strong id="expected">320</strong><em>Today's responses</em></div>
+<div class="stat"><span>Food planned</span><strong id="planned">320</strong><em>Meal portions</em></div>
+<div class="stat"><span>Meals served</span><strong id="served">298</strong><em>Recorded servings</em></div>
+<div class="stat"><span>Leftover food</span><strong id="leftover">22</strong><em>Portions (sample)</em></div>
+</div>
+<div class="grid2">
+<div class="panel"><h2>Meal activity</h2><div class="barrow"><span>Expected</span><div class="bar"><i id="expectedbar" style="width:100%"></i></div><b id="expectednum">320</b></div><div class="barrow"><span>Served</span><div class="bar"><i id="servedbar" style="width:93%"></i></div><b id="servednum">298</b></div><div class="barrow"><span>Leftover</span><div class="bar"><i id="leftbar" style="width:7%;background:#ef9451"></i></div><b id="leftnum">22</b></div><p>Figures update when you enter new meal records.</p></div>
+<div class="panel"><h2>Today's suggestions</h2><div class="recommend">🌾 Compare meal selections with actual attendance before cooking.</div><div class="recommend">🥗 Record leftovers after every meal to improve future planning.</div><div class="recommend">📊 Review weekly trends and adjust portion estimates.</div></div>
+</div>
+<div class="notice">Prototype note: the starting figures are demonstration data. Replace them with real mess records during testing.</div>
+</section>
+<section id="student" class="page">
+<h1>Student meal selection</h1><p class="sub">A sample form students can use to indicate whether they plan to eat.</p>
+<div class="panel"><h2>Submit meal response</h2><label for="studentname">Student name or ID (optional)</label><input id="studentname" placeholder="Enter name or student ID"><label for="meal">Meal</label><select id="meal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select><label>Will you eat in the mess?</label><div class="choice"><button id="yes" class="selected" type="button">Yes, I will eat</button><button id="no" type="button">No, I won't eat</button></div><button class="btn" id="submitmeal">Submit response</button><p id="mealmsg" aria-live="polite"></p><div class="notice">Demo only: responses are stored in this page during this browser session. This is not a secure student database.</div></div>
+</section>
+<section id="planning" class="page">
+<h1>Food quantity planning</h1><p class="sub">Estimate portions using the expected student count.</p>
+<div class="panel"><h2>Plan a meal</h2><label for="planmeal">Meal</label><select id="planmeal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select><label for="count">Expected students</label><input type="number" id="count" min="0" value="320"><label for="buffer">Extra portions (%)</label><input type="number" id="buffer" min="0" max="50" value="5"><button class="btn" id="calculate">Calculate food portions</button><h2 id="planresult" style="margin-top:20px">Suggested quantity: 336 portions</h2><p>Planning estimate only. Staff should adjust for menu, serving size and previous records.</p></div>
+</section>
+<section id="records" class="page">
+<h1>Meal & leftover records</h1><p class="sub">Record what was served and what remained after a meal.</p>
+<div class="panel"><h2>Add meal record</h2><label for="recordmeal">Meal</label><select id="recordmeal"><option>Breakfast</option><option>Lunch</option><option>Dinner</option></select><label for="servedinput">Meals served</label><input id="servedinput" type="number" min="0" value="298"><label for="leftinput">Leftover portions</label><input id="leftinput" type="number" min="0" value="22"><button class="btn" id="saverecord">Save record</button><p id="recordmsg" aria-live="polite"></p></div>
+<div class="panel"><h2>Recent records</h2><table><thead><tr><th>Meal</th><th>Served</th><th>Leftover</th></tr></thead><tbody id="recordsbody"><tr><td>Breakfast (sample)</td><td>298</td><td>22</td></tr></tbody></table></div>
+</section>
+<section id="reports" class="page">
+<h1>Reports & recommendations</h1><p class="sub">A simple view of food use and waste.</p>
+<div class="grid2"><div class="panel"><h2>Current meal summary</h2><p>Meals served: <b id="reportserved">298</b></p><p>Leftover portions: <b id="reportleft">22</b></p><p>Leftover rate: <b id="wasterate">6.9%</b></p></div><div class="panel"><h2>Ways to improve</h2><div class="recommend">1. Collect meal responses before the daily cut-off time.</div><div class="recommend">2. Use previous meal records to estimate demand.</div><div class="recommend">3. Weigh leftovers where possible for more accurate reports.</div></div></div>
+</section>
+</main>
+</div>
+<footer>SmartMeal student project prototype • Demonstration data only • Not connected to a live college system</footer>
+<script>
+const navButtons=document.querySelectorAll('nav button');
+navButtons.forEach(b=>b.addEventListener('click',()=>{navButtons.forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(b.dataset.page).classList.add('active')}));
+let willEat=true, expected=320, served=298, leftover=22;
+document.getElementById('yes').onclick=()=>{willEat=true;document.getElementById('yes').classList.add('selected');document.getElementById('no').classList.remove('selected')};
+document.getElementById('no').onclick=()=>{willEat=false;document.getElementById('no').classList.add('selected');document.getElementById('yes').classList.remove('selected')};
+document.getElementById('submitmeal').onclick=()=>{if(willEat)expected++;else expected=Math.max(0,expected-1);document.getElementById('expected').textContent=expected;document.getElementById('expectednum').textContent=expected;document.getElementById('expectedbar').style.width='100%';document.getElementById('mealmsg').textContent='Demo response recorded. Expected count updated.'};
+document.getElementById('calculate').onclick=()=>{let c=Math.max(0,+document.getElementById('count').value||0),b=Math.min(50,Math.max(0,+document.getElementById('buffer').value||0));document.getElementById('planresult').textContent='Suggested quantity: '+Math.ceil(c*(1+b/100))+' portions'};
+function update(){document.getElementById('served').textContent=served;document.getElementById('leftover').textContent=leftover;document.getElementById('servednum').textContent=served;document.getElementById('leftnum').textContent=leftover;let total=Math.max(1,served+leftover);document.getElementById('servedbar').style.width=(served/total*100)+'%';document.getElementById('leftbar').style.width=(leftover/total*100)+'%';document.getElementById('reportserved').textContent=served;document.getElementById('reportleft').textContent=leftover;document.getElementById('wasterate').textContent=(leftover/total*100).toFixed(1)+'%';document.getElementById('planned').textContent=expected}
+document.getElementById('saverecord').onclick=()=>{served=Math.max(0,+document.getElementById('servedinput').value||0);leftover=Math.max(0,+document.getElementById('leftinput').value||0);let meal=document.getElementById('recordmeal').value;let tr=document.createElement('tr');[meal,served,leftover].forEach(v=>{let td=document.createElement('td');td.textContent=v;tr.appendChild(td)});document.getElementById('recordsbody').prepend(tr);document.getElementById('recordmsg').textContent='Meal record added to this demo.';update()};
+update();
+</script>
+</body></html>
